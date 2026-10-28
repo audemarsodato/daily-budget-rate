@@ -25,7 +25,7 @@ export default function App() {
         }, [starting])
 
         useEffect(() => {
-                if (!dailyBudget) return
+                if (!dailyBudget || !currentBudget) return
 
                 const newDailyBudget = calculateDailyBudget(currentBudget)
                 setDailyBudget(newDailyBudget)
@@ -36,10 +36,6 @@ export default function App() {
                 const dailyBudget = calculateDailyBudget(event.target.value)
                 setDailyBudget(dailyBudget)
         }
-
-        // useEffect(() => {
-        //         console.log(currentBudget)
-        // }, [currentBudget])
 
         return (
                 <section className="app">
