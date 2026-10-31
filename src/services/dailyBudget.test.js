@@ -10,4 +10,4 @@ describe('calculate daily budget rate', () => {
                 expect(calculateDailyBudget(100, 0)).toBe(100)
                 expect(typeof calculateDailyBudget(100, 12) === 'number').toBeTruthy()
         })
-})
+}
