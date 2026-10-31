@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { endOfMonth } from "date-fns"
 
+import { calculateDailyBudget } from "./services/dailyBudget"
+
 export default function App() {
         const [ currentDate, setCurrentDate ] = useState(null)
         const [ remainingDays, setRemainingDays ] = useState(null)
@@ -8,11 +10,7 @@ export default function App() {
         const [ dailyBudget, setDailyBudget ] = useState(null)
         const [ currentBudget, setCurrentBudget ] = useState(null)
 
-        const calculateDailyBudget = currentBudget => {
-                const dailyBudget = currentBudget / remainingDays
 
-                return dailyBudget
-        }
 
         useEffect(() => {
                 const today = new Date()
@@ -27,13 +25,14 @@ export default function App() {
         useEffect(() => {
                 if (!dailyBudget || !currentBudget) return
 
-                const newDailyBudget = calculateDailyBudget(currentBudget)
+                const newDailyBudget = calculateDailyBudget(currentBudget, remainingDays)
                 setDailyBudget(newDailyBudget)
         }, [remainingDays])
 
         const handleChange = event => {
                 setCurrentBudget(event.target.value)
-                const dailyBudget = calculateDailyBudget(event.target.value)
+                const dailyBudget = calculateDailyBudget(event.target.value, remainingDays)
+
                 setDailyBudget(dailyBudget)
         }
 
