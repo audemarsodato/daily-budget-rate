@@ -10,14 +10,17 @@ export default function App() {
         const [ dailyBudget, setDailyBudget ] = useState(null)
         const [ currentBudget, setCurrentBudget ] = useState(null)
 
-
-
-        useEffect(() => {
+        const getRemainingDays = () => {
                 const today = new Date()
                 const formatter = new Intl.DateTimeFormat('en-US', {month: 'short', day: 'numeric'})
                 setCurrentDate(formatter.format(today).replace(' ', '. '))
+                const remainingDays =  endOfMonth(today).getDate() - today.getDate()
 
-                let remainingDays =  endOfMonth(today).getDate() - today.getDate()
+                return remainingDays
+        }
+
+        useEffect(() => {
+                let remainingDays =  getRemainingDays()
                 if (starting === 'today') remainingDays += 1
                 setRemainingDays(remainingDays)
         }, [starting])
