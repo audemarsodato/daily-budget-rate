@@ -3,12 +3,23 @@ import { endOfMonth } from "date-fns"
 
 import { calculateDailyBudget } from "./services/dailyBudget"
 
+import BottomSheet from "./components/bottom-sheet/BottomSheet"
+
 export default function App() {
         const [ currentDate, setCurrentDate ] = useState(null)
         const [ remainingDays, setRemainingDays ] = useState(null)
         const [ starting, setStarting ] = useState('tomorrow')
         const [ dailyBudget, setDailyBudget ] = useState(null)
         const [ currentBudget, setCurrentBudget ] = useState(null)
+        const [ isModalSheetOpen, setIsModalSheetOpen ] = useState(false)
+
+        const openModalSheet = () => {
+                setIsModalSheetOpen(true)
+        }
+
+        const closeModalSheet = () => {
+                setIsModalSheetOpen(false)
+        }
 
         const getRemainingDays = () => {
                 const today = new Date()
@@ -42,8 +53,16 @@ export default function App() {
         return (
                 <section className="app">
                         <section className="current-date">
-                                <h1>{currentDate}</h1>
-                                <p className="days-left">{remainingDays} DAYS LEFT</p>
+                                <div>
+                                        <h1>{currentDate}</h1>
+                                        <p className="days-left">{remainingDays} DAYS LEFT</p>
+                                </div>
+
+                                <div className="settings">
+                                        <button className="settings__button" onClick={openModalSheet}>
+                                                <span className='material-symbols-outlined settings__button__icon'>settings</span>
+                                        </button>
+                                </div>
                         </section>
 
                         <section className="starting">
@@ -66,6 +85,8 @@ export default function App() {
                                 <p><span className="daily-budget">{dailyBudget ? dailyBudget.toFixed(2) : ' - '}</span> pesos per day</p>
                                 <p className="output__label">DAILY BUDGET</p>
                         </section>
+
+                        <BottomSheet isOpen={isModalSheetOpen} onClose={closeModalSheet} />
                 </section>
         )
 }
