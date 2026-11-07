@@ -6,7 +6,12 @@
         --label-size: 0.875rem; /* 14px */
 
         --bg-color: #ffc56c;
+        --color-one: #fd5a46;
+        --color-two: #ccff00;
+        --color-three: #00bfff;
         --text-color: #000000;
+        --color-none: rgba(0, 0, 0, 0);
+        --white: #ffffff;
 }
 
 * {
@@ -28,6 +33,36 @@ body {
         flex-direction: column;
 
         gap: 24px;
+}
+
+.current-date {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.settings__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0.25rem;
+        /* border-radius: 0.5rem; */
+
+        background-color: var(--bg-color);
+        border: 3px solid var(--text-color);
+        box-shadow: 4px 4px 0 var(--text-color);
+
+        /* transition: transform 0.04s ease, box-shadow, 0.05s ease; */
+}
+
+.settings__button:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0 var(--text-color);
+}
+
+.settings__button__icon {
+        font-size: 1.5rem;
 }
 
 h1 {
@@ -60,7 +95,7 @@ h1 {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        background-color: #fd5a46;
+        background-color: var(--color-one);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }
@@ -81,7 +116,7 @@ h1 {
 .starting__options .choosen {
         /* color: #fff; */
         font-weight: 900;
-        background-color: #fd5a46;
+        background-color: var(--color-one);
         border: 0px solid var(--text-color);
 }
 
@@ -105,7 +140,7 @@ h1 {
 
         text-align: end;
         font-weight: 900;
-        background-color: #ccff00;
+        background-color: var(--color-two);
         color: var(--text-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
@@ -125,7 +160,7 @@ h1 {
 .output {
         padding: 24px;
 
-        background-color: #00bfff;
+        background-color: var(--color-three);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }

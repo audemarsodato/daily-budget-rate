@@ -10,7 +10,7 @@ export default function BottomSheet({ isOpen, onClose }) {
         const [ bgColor, setBgColor ] = useState('#ffc56c')
         const [ colorOne, setColorOne ] = useState('#fd5a46')
         const [ colorTwo, setColorTwo ] = useState('#ccff00')
-        const [ primaryColor, setprimaryColor ] = useState('#00bfff')
+        const [ colorThree, setColorThree ] = useState('#00bfff')
 
         // bg, primary, secondary, accent
 
@@ -79,7 +79,6 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                 setmounted(true)
                 setShow(true)
-                // setShow(true)
                         
                 // setTimeout(() => {
                 // }, 0) // TODO study how these worked
@@ -90,8 +89,8 @@ export default function BottomSheet({ isOpen, onClose }) {
                 root.style.setProperty('--bg-color', bgColor)
                 root.style.setProperty('--color-one', colorOne)
                 root.style.setProperty('--color-two', colorTwo)
-                root.style.setProperty('--color-three', primaryColor)
-        }, [bgColor, colorOne, colorTwo, primaryColor])
+                root.style.setProperty('--color-three', colorThree)
+        }, [bgColor, colorOne, colorTwo, colorThree])
 
         if (!mounted) return null
 
@@ -195,11 +194,11 @@ export default function BottomSheet({ isOpen, onClose }) {
                                         </section>
 
                                         <section className="color-3 bottom-sheet__section">
-                                                <p className="bottom-sheet__label">Primary color</p>
-                                                <div className="color-theme__options" style={{backgroundColor: primaryColor}}>
+                                                <p className="bottom-sheet__label">Color 3</p>
+                                                <div className="color-theme__options" style={{backgroundColor: colorThree}}>
                                                         {presetColors.map(color => (
                                                                 <label 
-                                                                        className={`color-theme__preset-color ${primaryColor === color ? 'active' : ''}`}
+                                                                        className={`color-theme__preset-color ${colorThree === color ? 'active' : ''}`}
                                                                         style={{backgroundColor: color}} 
                                                                         key={color}
                                                                         onPointerDown={event => event.stopPropagation()}
@@ -209,8 +208,8 @@ export default function BottomSheet({ isOpen, onClose }) {
                                                                         <input 
                                                                                 type="radio" 
                                                                                 name="bg-color" 
-                                                                                checked={primaryColor === color}
-                                                                                onChange={() => setprimaryColor(color)}
+                                                                                checked={colorThree === color}
+                                                                                onChange={() => setColorThree(color)}
                                                                                 hidden
                                                                         />
                                                                 </label>
