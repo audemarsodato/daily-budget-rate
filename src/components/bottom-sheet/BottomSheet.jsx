@@ -7,9 +7,25 @@ export default function BottomSheet({ isOpen, onClose }) {
         const [ mounted, setmounted ] = useState(isOpen)
         const [ show, setShow ] = useState(false)
 
+        const [ bgColor, setBgColor ] = useState('#ffc56c')
+        const [ colorOne, setColorOne ] = useState('#fd5a46')
+        const [ colorTwo, setColorTwo ] = useState('#ccff00')
+        const [ colorThree, setColorThree ] = useState('#00bfff')
+
+        // bg, primary, secondary, accent
+
         const initialPosition = useRef(20)
         const startY = useRef(0)
         const yDistance = useRef(0)
+
+        const presetColors = [
+                '#ffc56c',
+                '#fd5a46',
+                '#ccff00',
+                '#00bfff',
+                '#cb2fff',
+                '#ffffff'
+        ]
 
         const handlePointerDown = (event) => {
                 startY.current = event.clientY
@@ -25,7 +41,7 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                 yDistance.current = event.clientY - startY.current
 
-                sheetRef.current.style.transform = `translateY(calc(${initialPosition.current}dvh + ${yDistance.current}px))`
+                sheetRef.current.style.transform = `translateY(calc(${initialPosition.current}dvh + ${yDistance.current}px))` //clamp to the top of the screen so that it does not get drag past the celing
         }
 
         const handlePointerUp = () => {
@@ -69,11 +85,27 @@ export default function BottomSheet({ isOpen, onClose }) {
                 }, 0) // TODO study how these worked
         }, [isOpen])
 
+        useEffect(() => {
+                const root = document.documentElement
+                root.style.setProperty('--bg-color', bgColor)
+                root.style.setProperty('--color-one', colorOne)
+                root.style.setProperty('--color-two', colorTwo)
+                root.style.setProperty('--color-three', colorThree)
+        }, [bgColor, colorOne, colorTwo, colorThree])
+
         if (!mounted) return null
 
         return (
                 <div className={`bottom-sheet ${show ? 'active' : ''}`} onClick={onClose}>
-                        <section ref={sheetRef} className={`bottom-sheet__body ${ show ? 'show' : ''} ${isDragging ? 'dragging' : ''}`} onClick={event => event.stopPropagation()}>
+                        <section 
+                                ref={sheetRef} 
+                                className={`bottom-sheet__body ${ show ? 'show' : ''} ${isDragging ? 'dragging' : ''}`} 
+                                onClick={event => event.stopPropagation()}
+                                onPointerDown={handlePointerDown}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerCancel={handlePointerUp} // TODO prevent trigger of these when interacting with the content
+                        >
                                 <div className="bottom-sheet__top-shelf">
                                         <div 
                                                 className="bottom-sheet__drag-line"
@@ -87,9 +119,109 @@ export default function BottomSheet({ isOpen, onClose }) {
                                                 <span className='material-symbols-outlined'>close</span>
                                         </button> */}
                                 </div>
-                                <div className="bottom-sheet__content">
-                                        <h1>Theme</h1>
-                                        <p>lorem ipsum dolor sit amet consectetur adipiscing elit dolore consectetur eiusmod eligendi facilis occaecat non qui voluptas dolor ipsum imperdiet irure esse adipiscing id deserunt cum et ut expedita iusto dolore voluptate id est nobis at libero in irure voluptatum cumque nam ad libero ut qui culpa dolores amet eos sit lorem veniam non id sint duis consectetur in commodo officia dolor quas labore dolores ut est mollit commodo cillum quod ipsum ducimus praesentium dolore velit consequatur quos similique nulla occaecat dolore esse maxime dolorum nihil ad atque excepturi nulla amet id corrupti accusamus odio nostrud temporibus dolor consequatur rerum qui odio officia culpa occaecat do id expedita elit nostrud qui cupiditate voluptas aliquip consequatur tempor facere iusto dolorem reprehenderit</p>
+                                <div 
+                                        className="bottom-sheet__content"
+                                        // onPointerDown={event => event.stopPropagation()}
+                                        // onPointerMove={event => event.stopPropagation()}
+                                        // onPointerUp={event => event.stopPropagation()}
+                                >
+                                        <h1 className='bottom-sheet__title'>Theme</h1>
+
+                                        <section className="bg-color bottom-sheet__section">
+                                                <p className="bottom-sheet__label">Background color</p>
+                                                <div className="color-theme__options" style={{backgroundColor: bgColor}}>
+                                                        {presetColors.map(color => (
+                                                                <label 
+                                                                        className={`color-theme__preset-color ${bgColor === color ? 'active' : ''}`}
+                                                                        style={{backgroundColor: color}} 
+                                                                        key={color}
+                                                                        onPointerDown={event => event.stopPropagation()}
+                                                                        onPointerMove={event => event.stopPropagation()}
+                                                                        onPointerUp={event => event.stopPropagation()}
+                                                                >
+                                                                        <input 
+                                                                                type="radio" 
+                                                                                name="bg-color" 
+                                                                                checked={bgColor === color}
+                                                                                onChange={() => setBgColor(color)}
+                                                                                hidden
+                                                                        />
+                                                                </label>
+                                                        ))}
+                                                </div>
+                                        </section>
+
+                                        <section className="color-1 bottom-sheet__section">
+                                                <p className="bottom-sheet__label">Color 1</p>
+                                                <div className="color-theme__options" style={{backgroundColor: colorOne}}>
+                                                        {presetColors.map(color => (
+                                                                <label 
+                                                                className={`color-theme__preset-color ${colorOne === color ? 'active' : ''}`}
+                                                                style={{backgroundColor: color}} 
+                                                                key={color}
+                                                                onPointerDown={event => event.stopPropagation()}
+                                                                onPointerMove={event => event.stopPropagation()}
+                                                                onPointerUp={event => event.stopPropagation()}
+                                                        >
+                                                                <input 
+                                                                        type="radio" 
+                                                                        name="color-one" 
+                                                                        checked={colorOne === color}
+                                                                        onChange={() => setColorOne(color)}
+                                                                        hidden
+                                                                />
+                                                        </label>
+                                                        ))}
+                                                </div>
+                                        </section>
+
+                                        <section className="color-2 bottom-sheet__section">
+                                                <p className="bottom-sheet__label">Color 2</p>
+                                                <div className="color-theme__options" style={{backgroundColor: colorTwo}}>
+                                                        {presetColors.map(color => (
+                                                                <label 
+                                                                className={`color-theme__preset-color ${colorTwo === color ? 'active' : ''}`}
+                                                                style={{backgroundColor: color}} 
+                                                                key={color}
+                                                                onPointerDown={event => event.stopPropagation()}
+                                                                onPointerMove={event => event.stopPropagation()}
+                                                                onPointerUp={event => event.stopPropagation()}
+                                                        >
+                                                                <input 
+                                                                        type="radio" 
+                                                                        name="bg-color" 
+                                                                        checked={colorTwo === color}
+                                                                        onChange={() => setColorTwo(color)}
+                                                                        hidden
+                                                                />
+                                                        </label>
+                                                        ))}
+                                                </div>
+                                        </section>
+
+                                        <section className="color-3 bottom-sheet__section">
+                                                <p className="bottom-sheet__label">Color 3</p>
+                                                <div className="color-theme__options" style={{backgroundColor: colorThree}}>
+                                                        {presetColors.map(color => (
+                                                                <label 
+                                                                        className={`color-theme__preset-color ${colorThree === color ? 'active' : ''}`}
+                                                                        style={{backgroundColor: color}} 
+                                                                        key={color}
+                                                                        onPointerDown={event => event.stopPropagation()}
+                                                                        onPointerMove={event => event.stopPropagation()}
+                                                                        onPointerUp={event => event.stopPropagation()}
+                                                                >
+                                                                        <input 
+                                                                                type="radio" 
+                                                                                name="bg-color" 
+                                                                                checked={colorThree === color}
+                                                                                onChange={() => setColorThree(color)}
+                                                                                hidden
+                                                                        />
+                                                                </label>
+                                                        ))}
+                                                </div>
+                                        </section>
                                 </div>
                         </section>
                 </div>

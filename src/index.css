@@ -6,6 +6,9 @@
         --label-size: 0.875rem; /* 14px */
 
         --bg-color: #ffc56c;
+        --color-one: #fd5a46;
+        --color-two: #ccff00;
+        --color-three: #00bfff;
         --text-color: #000000;
         --color-none: rgba(0, 0, 0, 0);
         --white: #ffffff;
@@ -92,7 +95,7 @@ h1 {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        background-color: #fd5a46;
+        background-color: var(--color-one);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }
@@ -113,7 +116,7 @@ h1 {
 .starting__options .choosen {
         /* color: #fff; */
         font-weight: 900;
-        background-color: #fd5a46;
+        background-color: var(--color-one);
         border: 0px solid var(--text-color);
 }
 
@@ -137,7 +140,7 @@ h1 {
 
         text-align: end;
         font-weight: 900;
-        background-color: #ccff00;
+        background-color: var(--color-two);
         color: var(--text-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
@@ -157,7 +160,7 @@ h1 {
 .output {
         padding: 24px;
 
-        background-color: #00bfff;
+        background-color: var(--color-three);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }
