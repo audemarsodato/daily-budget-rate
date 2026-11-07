@@ -78,7 +78,12 @@ export default function BottomSheet({ isOpen, onClose }) {
                 }
 
                 setmounted(true)
-                setShow(true)
+
+                requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                                setShow(true)
+                        })
+                })
                         
                 // setTimeout(() => {
                 // }, 0) // TODO study how these worked
