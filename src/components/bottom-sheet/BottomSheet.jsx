@@ -79,7 +79,7 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                 setmounted(true)
 
-                requestAnimationFrame(() => {
+                requestAnimationFrame(() => { // TODO study the system behind these two raf used
                         requestAnimationFrame(() => {
                                 setShow(true)
                         })

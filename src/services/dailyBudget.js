@@ -1,6 +1,7 @@
 
-export const calculateDailyBudget = (currentBudget, remainingDays) => { // TODO handle negative days and budget
-        if (remainingDays === 0) return currentBudget * 1 // currentBudget is a string so doing an arithmetic operatin will turn it into a number
+export const calculateDailyBudget = (currentBudget, remainingDays) => {
+        if (remainingDays <= 0) return currentBudget * 1 // currentBudget is a string so doing an arithmetic operatin will turn it into a number
+        if (currentBudget <= 0) return 0
 
         const dailyBudget = currentBudget / remainingDays
 
