@@ -41,7 +41,7 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                 yDistance.current = event.clientY - startY.current
 
-                sheetRef.current.style.transform = `translateY(${Math.max(0, initialPosition.current * window.innerHeight / 100 + yDistance.current)}px)` //clamp to the top of the screen so that it does not get drag past the celing
+                sheetRef.current.style.transform = `translateY(calc(${initialPosition.current}dvh + ${yDistance.current}px))` //clamp to the top of the screen so that it does not get drag past the celing
         }
 
         const handlePointerUp = () => {
