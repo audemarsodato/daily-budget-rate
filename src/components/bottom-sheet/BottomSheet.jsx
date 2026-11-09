@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './BottomSheet.css'
+import ColorThemeOptions from './components/ColorThemeOptions'
 
 export default function BottomSheet({ isOpen, onClose }) {
         const sheetRef = useRef(null)
@@ -8,11 +9,9 @@ export default function BottomSheet({ isOpen, onClose }) {
         const [ show, setShow ] = useState(false)
 
         const [ bgColor, setBgColor ] = useState('#ffc56c')
-        const [ accentColor, setAccentColor ] = useState('#fd5a46') // accent
-        const [ secondaryColor, setSecondaryColor ] = useState('#ccff00') // secondary
-        const [ primaryColor, setPrimaryColor ] = useState('#00bfff') // primary
-
-        // bg, primary, secondary, accent
+        const [ accentColor, setAccentColor ] = useState('#fd5a46') 
+        const [ secondaryColor, setSecondaryColor ] = useState('#ccff00') 
+        const [ primaryColor, setPrimaryColor ] = useState('#00bfff') 
 
         const initialPosition = useRef(20)
         const startY = useRef(0)
@@ -92,9 +91,9 @@ export default function BottomSheet({ isOpen, onClose }) {
         useEffect(() => {
                 const root = document.documentElement
                 root.style.setProperty('--bg-color', bgColor)
-                root.style.setProperty('--color-one', accentColor)
-                root.style.setProperty('--color-two', secondaryColor)
-                root.style.setProperty('--color-three', primaryColor)
+                root.style.setProperty('--accent-color', accentColor)
+                root.style.setProperty('--secondary-color', secondaryColor)
+                root.style.setProperty('--primary-color', primaryColor)
         }, [bgColor, accentColor, secondaryColor, primaryColor])
 
         if (!mounted) return null
@@ -108,7 +107,7 @@ export default function BottomSheet({ isOpen, onClose }) {
                                 onPointerDown={handlePointerDown}
                                 onPointerMove={handlePointerMove}
                                 onPointerUp={handlePointerUp}
-                                onPointerCancel={handlePointerUp} // TODO prevent trigger of these when interacting with the content
+                                onPointerCancel={handlePointerUp} 
                         >
                                 <div className="bottom-sheet__top-shelf">
                                         <div 
@@ -128,98 +127,22 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                                         <section className="bg-color bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Background color</p>
-                                                <div className="color-theme__options" style={{backgroundColor: bgColor}}>
-                                                        {presetColors.map(color => (
-                                                                <label 
-                                                                        className={`color-theme__preset-color ${bgColor === color ? 'active' : ''}`}
-                                                                        style={{backgroundColor: color}} 
-                                                                        key={color}
-                                                                        onPointerDown={event => event.stopPropagation()}
-                                                                        onPointerMove={event => event.stopPropagation()}
-                                                                        onPointerUp={event => event.stopPropagation()}
-                                                                >
-                                                                        <input 
-                                                                                type="radio" 
-                                                                                name="bg-color" 
-                                                                                checked={bgColor === color}
-                                                                                onChange={() => setBgColor(color)}
-                                                                                hidden
-                                                                        />
-                                                                </label>
-                                                        ))}
-                                                </div>
+                                                <ColorThemeOptions colorType={bgColor} setColor={setBgColor} presetColors={presetColors} />
                                         </section>
 
                                         <section className="color-1 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Accent color</p>
-                                                <div className="color-theme__options" style={{backgroundColor: accentColor}}>
-                                                        {presetColors.map(color => (
-                                                                <label 
-                                                                className={`color-theme__preset-color ${accentColor === color ? 'active' : ''}`}
-                                                                style={{backgroundColor: color}} 
-                                                                key={color}
-                                                                onPointerDown={event => event.stopPropagation()}
-                                                                onPointerMove={event => event.stopPropagation()}
-                                                                onPointerUp={event => event.stopPropagation()}
-                                                        >
-                                                                <input 
-                                                                        type="radio" 
-                                                                        name="color-one" 
-                                                                        checked={accentColor === color}
-                                                                        onChange={() => setAccentColor(color)}
-                                                                        hidden
-                                                                />
-                                                        </label>
-                                                        ))}
-                                                </div>
+                                                <ColorThemeOptions colorType={accentColor} setColor={setAccentColor} presetColors={presetColors} />
                                         </section>
 
                                         <section className="color-2 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Secondary color</p>
-                                                <div className="color-theme__options" style={{backgroundColor: secondaryColor}}>
-                                                        {presetColors.map(color => (
-                                                                <label 
-                                                                className={`color-theme__preset-color ${secondaryColor === color ? 'active' : ''}`}
-                                                                style={{backgroundColor: color}} 
-                                                                key={color}
-                                                                onPointerDown={event => event.stopPropagation()}
-                                                                onPointerMove={event => event.stopPropagation()}
-                                                                onPointerUp={event => event.stopPropagation()}
-                                                        >
-                                                                <input 
-                                                                        type="radio" 
-                                                                        name="bg-color" 
-                                                                        checked={secondaryColor === color}
-                                                                        onChange={() => setSecondaryColor(color)}
-                                                                        hidden
-                                                                />
-                                                        </label>
-                                                        ))}
-                                                </div>
+                                                <ColorThemeOptions colorType={secondaryColor} setColor={setSecondaryColor} presetColors={presetColors} />
                                         </section>
 
                                         <section className="color-3 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Primary color</p>
-                                                <div className="color-theme__options" style={{backgroundColor: primaryColor}}>
-                                                        {presetColors.map(color => (
-                                                                <label 
-                                                                        className={`color-theme__preset-color ${primaryColor === color ? 'active' : ''}`}
-                                                                        style={{backgroundColor: color}} 
-                                                                        key={color}
-                                                                        onPointerDown={event => event.stopPropagation()}
-                                                                        onPointerMove={event => event.stopPropagation()}
-                                                                        onPointerUp={event => event.stopPropagation()}
-                                                                >
-                                                                        <input 
-                                                                                type="radio" 
-                                                                                name="bg-color" 
-                                                                                checked={primaryColor === color}
-                                                                                onChange={() => setPrimaryColor(color)}
-                                                                                hidden
-                                                                        />
-                                                                </label>
-                                                        ))}
-                                                </div>
+                                                <ColorThemeOptions colorType={primaryColor} setColor={setPrimaryColor} presetColors={presetColors} />
                                         </section>
                                 </div>
                         </section>

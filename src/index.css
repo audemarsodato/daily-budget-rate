@@ -6,9 +6,9 @@
         --label-size: 0.875rem; /* 14px */
 
         --bg-color: #ffc56c;
-        --color-one: #fd5a46;
-        --color-two: #ccff00;
-        --color-three: #00bfff;
+        --accent-color: #fd5a46;
+        --secondary-color: #ccff00;
+        --primary-color: #00bfff;
         --text-color: #000000;
         --color-none: rgba(0, 0, 0, 0);
         --white: #ffffff;
@@ -95,7 +95,7 @@ h1 {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        background-color: var(--color-one);
+        background-color: var(--accent-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }
@@ -116,7 +116,7 @@ h1 {
 .starting__options .choosen {
         /* color: #fff; */
         font-weight: 900;
-        background-color: var(--color-one);
+        background-color: var(--accent-color);
         border: 0px solid var(--text-color);
 }
 
@@ -140,7 +140,7 @@ h1 {
 
         text-align: end;
         font-weight: 900;
-        background-color: var(--color-two);
+        background-color: var(--secondary-color);
         color: var(--text-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
@@ -160,7 +160,7 @@ h1 {
 .output {
         padding: 24px;
 
-        background-color: var(--color-three);
+        background-color: var(--primary-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 }
