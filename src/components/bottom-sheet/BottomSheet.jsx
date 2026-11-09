@@ -87,14 +87,44 @@ export default function BottomSheet({ isOpen, onClose }) {
                 // setTimeout(() => {
                 // }, 0) // TODO study how these worked
         }, [isOpen])
-
+        
         useEffect(() => {
+                const colorSchemeObj = JSON.parse(localStorage.getItem('colorScheme'))
+
+                if (!colorSchemeObj) {
+                        console.log('NO SAVED COLOR SCHEME')
+                        return
+                }
+
+                const { 
+                        bgColor, 
+                        accentColor, 
+                        secondaryColor, 
+                        primaryColor
+                } = colorSchemeObj
+
+                setBgColor(bgColor)
+                setAccentColor(accentColor)
+                setSecondaryColor(secondaryColor)
+                setPrimaryColor(primaryColor)
+
                 const root = document.documentElement
                 root.style.setProperty('--bg-color', bgColor)
                 root.style.setProperty('--accent-color', accentColor)
                 root.style.setProperty('--secondary-color', secondaryColor)
                 root.style.setProperty('--primary-color', primaryColor)
-        }, [bgColor, accentColor, secondaryColor, primaryColor])
+        }, [])
+        
+        const saveColorScheme = (color) => {
+                const colorScheme = {bgColor, accentColor, secondaryColor, primaryColor}
+
+                if (!color.type || !color.value) throw new Error('Color type and value required in saving color scheme')
+
+                if (!(color.type in colorScheme)) throw new Error('Cannot change color as it does not match any type in color scheme')
+
+                colorScheme[color.type] = color.value
+                localStorage.setItem('colorScheme', JSON.stringify(colorScheme))
+        }
 
         if (!mounted) return null
 
@@ -127,22 +157,54 @@ export default function BottomSheet({ isOpen, onClose }) {
 
                                         <section className="bg-color bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Background color</p>
-                                                <ColorThemeOptions colorType={bgColor} setColor={setBgColor} presetColors={presetColors} />
+                                                <ColorThemeOptions 
+                                                        colorType={bgColor} 
+                                                        setColor={(color) => {
+                                                                setBgColor(color) 
+                                                                document.documentElement.style.setProperty('--bg-color', color)
+                                                                saveColorScheme({type: 'bgColor', value: color})
+                                                        }} 
+                                                        presetColors={presetColors} 
+                                                />
                                         </section>
 
                                         <section className="color-1 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Accent color</p>
-                                                <ColorThemeOptions colorType={accentColor} setColor={setAccentColor} presetColors={presetColors} />
+                                                <ColorThemeOptions 
+                                                        colorType={accentColor} 
+                                                        setColor={(color) => {
+                                                                setAccentColor(color)
+                                                                document.documentElement.style.setProperty('--accent-color', color)
+                                                                saveColorScheme({type: 'accentColor', value: color})
+                                                        }}
+                                                        presetColors={presetColors} 
+                                                />
                                         </section>
 
                                         <section className="color-2 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Secondary color</p>
-                                                <ColorThemeOptions colorType={secondaryColor} setColor={setSecondaryColor} presetColors={presetColors} />
+                                                <ColorThemeOptions 
+                                                        colorType={secondaryColor} 
+                                                        setColor={(color) => {
+                                                                setSecondaryColor(color)
+                                                                document.documentElement.style.setProperty('--secondary-color', color)
+                                                                saveColorScheme({type: 'secondaryColor', value: color})
+                                                        }} 
+                                                        presetColors={presetColors} 
+                                                />
                                         </section>
 
                                         <section className="color-3 bottom-sheet__section">
                                                 <p className="bottom-sheet__label">Primary color</p>
-                                                <ColorThemeOptions colorType={primaryColor} setColor={setPrimaryColor} presetColors={presetColors} />
+                                                <ColorThemeOptions 
+                                                        colorType={primaryColor} 
+                                                        setColor={(color) => {
+                                                                setPrimaryColor(color)
+                                                                document.documentElement.style.setProperty('--primary-color', color)
+                                                                saveColorScheme({type: 'primaryColor', value: color})
+                                                        }} 
+                                                        presetColors={presetColors} 
+                                                />
                                         </section>
                                 </div>
                         </section>

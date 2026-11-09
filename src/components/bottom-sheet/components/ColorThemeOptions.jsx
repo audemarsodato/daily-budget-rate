@@ -6,7 +6,14 @@ export default function ColorThemeOptions({ colorType, setColor, presetColors })
         const [ customColor, setCustomColor ] = useState('')
 
         useEffect(() => {
-                if (!customColor) return
+                if (!presetColors.includes(colorType)) {
+                        // console.log('CURRENT COLOR IS NOT IN PRESET, SO IT MUST BE A CUSTOM COLOR')
+                        setCustomColor(colorType)
+                }
+        }, [])
+
+        useEffect(() => {
+                if (!customColor) return // IF there is no custom color, then dont set the custom color as the color
                 setColor(customColor)
         }, [customColor])
        

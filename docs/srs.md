@@ -9,3 +9,6 @@
 
 2. User Experience
 2/1. The system must allow user to customize the apps colors.
+
+3. Daily budget analytics
+3/1. 
