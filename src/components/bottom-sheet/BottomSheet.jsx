@@ -11,7 +11,7 @@ export default function BottomSheet({ isOpen, onClose }) {
         const [ bgColor, setBgColor ] = useState('#ffc56c')
         const [ accentColor, setAccentColor ] = useState('#fd5a46') 
         const [ secondaryColor, setSecondaryColor ] = useState('#ccff00') 
-        const [ primaryColor, setPrimaryColor ] = useState('#00bfff') 
+        const [ primaryColor, setPrimaryColor ] = useState('#00bfff') // TODO cyan is better
 
         const initialPosition = useRef(20)
         const startY = useRef(0)
@@ -21,7 +21,7 @@ export default function BottomSheet({ isOpen, onClose }) {
                 '#ffc56c',
                 '#fd5a46',
                 '#ccff00',
-                '#00bfff',
+                '#00bfff', // TODO cyan is better
                 '#cb2fff',
                 '#ffffff'
         ]
@@ -83,15 +83,12 @@ export default function BottomSheet({ isOpen, onClose }) {
                                 setShow(true)
                         })
                 })
-                        
-                // setTimeout(() => {
-                // }, 0) // TODO study how these worked
         }, [isOpen])
         
         useEffect(() => {
-                const colorSchemeObj = JSON.parse(localStorage.getItem('colorScheme'))
+                const colorScheme = JSON.parse(localStorage.getItem('colorScheme'))
 
-                if (!colorSchemeObj) {
+                if (!colorScheme) {
                         console.log('NO SAVED COLOR SCHEME')
                         return
                 }
@@ -101,7 +98,7 @@ export default function BottomSheet({ isOpen, onClose }) {
                         accentColor, 
                         secondaryColor, 
                         primaryColor
-                } = colorSchemeObj
+                } = colorScheme
 
                 setBgColor(bgColor)
                 setAccentColor(accentColor)

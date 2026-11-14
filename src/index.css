@@ -24,6 +24,9 @@
 
 body {
         padding: 1rem;
+        max-width: 600px;
+        margin: auto;
+        /* margin-bottom: 200px; */
 
         background: var(--bg-color);
 }
@@ -47,13 +50,13 @@ body {
         justify-content: center;
 
         padding: 0.25rem;
-        /* border-radius: 0.5rem; */
+        border-radius: 8px;
 
         background-color: var(--bg-color);
         border: 3px solid var(--text-color);
         box-shadow: 4px 4px 0 var(--text-color);
 
-        /* transition: transform 0.04s ease, box-shadow, 0.05s ease; */
+        transition: transform 0.05s ease, box-shadow, 0.05s ease;
 }
 
 .settings__button:active {
@@ -137,7 +140,7 @@ h1 {
         padding: 0.875rem;
         font-size: 1.5rem;
         /* font-size: var(--text-size); */
-
+        
         text-align: end;
         font-weight: 900;
         background-color: var(--secondary-color);
@@ -178,4 +181,29 @@ h1 {
 .daily-budget {
         font-size: var(--second-header-size);
         font-weight: 900;
+}
+
+.save-daily-budget {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+}
+
+.save-daily-budget__button {
+        padding: 0.875rem 1.5rem;
+
+        font-weight: 900;
+        background-color: var(--accent-color);
+        border: 3px solid var(--text-color);
+        box-shadow: 4px 4px 0 var(--text-color);
+        letter-spacing: 2px;
+        
+        border-radius: 8px;
+        
+        transition: box-shadow 0.05s ease, transform 0.05s ease;
+}
+
+.save-daily-budget__button:active {
+        box-shadow: 0 0 0 var(--text-color);
+        transform: translate(4px, 4px);
 }

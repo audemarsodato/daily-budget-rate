@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@rolldown/binding-wasm32-wasi": "^1.2.15",
+    "chart.js": "^4.6.1",
     "date-fns": "^4.4.0",
     "react": "^19.3.1",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {

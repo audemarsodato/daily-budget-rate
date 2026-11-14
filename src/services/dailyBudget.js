@@ -5,5 +5,5 @@ export const calculateDailyBudget = (currentBudget, remainingDays) => {
 
         const dailyBudget = currentBudget / remainingDays
 
-        return dailyBudget
+        return dailyBudget.toFixed(2) * 1 // .toFixed returns a string, so we convert it into a number
 }

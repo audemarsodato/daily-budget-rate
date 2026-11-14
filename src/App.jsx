@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { endOfMonth } from "date-fns"
 
 import { calculateDailyBudget } from "./services/dailyBudget"
+import { saveDailyBudget } from "./services/historicalBudget"
 
 import BottomSheet from "./components/bottom-sheet/BottomSheet"
+import Analytics from "./components/analytics/Analytics"
 
 export default function App() {
         const [ currentDate, setCurrentDate ] = useState(null)
@@ -12,7 +14,8 @@ export default function App() {
         const [ dailyBudget, setDailyBudget ] = useState(null)
         const [ currentBudget, setCurrentBudget ] = useState(null)
         const [ isModalSheetOpen, setIsModalSheetOpen ] = useState(false)
-
+        const [ saveCount, setSaveCount ] = useState(0) // use for tracking if user saved the daily budget rate, any changes triggers the analytics to display the newly saved data
+        
         const openModalSheet = () => {
                 setIsModalSheetOpen(true)
         }
@@ -40,7 +43,9 @@ export default function App() {
                 if (!dailyBudget || !currentBudget) return
 
                 const newDailyBudget = calculateDailyBudget(currentBudget, remainingDays)
+
                 setDailyBudget(newDailyBudget)
+                // saveDailyBudget(currentBudget, newDailyBudget, starting)
         }, [remainingDays])
 
         const handleChange = event => {
@@ -48,7 +53,15 @@ export default function App() {
                 const dailyBudget = calculateDailyBudget(event.target.value, remainingDays)
 
                 setDailyBudget(dailyBudget)
+                // saveDailyBudget(event.target.value, dailyBudget, starting)
         }
+
+        const handleSave = () => {
+                saveDailyBudget(currentBudget, dailyBudget, starting)
+                setSaveCount(count => count + 1)
+        }
+
+        // TODO use save button path to give users the controll on what to save. This is a tool to calculate daily budget and not on automatically recrding daily budgets as historycal analysis.
 
         return (
                 <section className="app">
@@ -82,9 +95,15 @@ export default function App() {
                         </section>
 
                         <section className="output">
-                                <p><span className="daily-budget">{dailyBudget ? dailyBudget.toFixed(2) : ' - '}</span> pesos per day</p>
+                                <p><span className="daily-budget">{dailyBudget ? dailyBudget : ' - '}</span> pesos per day</p>
                                 <p className="output__label">DAILY BUDGET</p>
                         </section>
+
+                        <section className="save-daily-budget">
+                                <button className="save-daily-budget__button" onClick={handleSave} disabled={!currentBudget}>SAVE</button>
+                        </section>
+
+                        <Analytics saveCount={saveCount}/>
 
                         <BottomSheet isOpen={isModalSheetOpen} onClose={closeModalSheet} />
                 </section>
