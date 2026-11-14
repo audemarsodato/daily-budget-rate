@@ -1,9 +1,9 @@
 export const getHistoryData = () => {
-        const history = JSON.parse(localStorage.getItem('dailyBudgetHistory')).sort((a, b) => new Date(a.date) - new Date(b.date))
+        const history = JSON.parse(localStorage.getItem('dailyBudgetHistory'))
 
         if (!history) return []
 
-        return history
+        return history.sort((a, b) => new Date(a.date) - new Date(b.date))
 }
 
 export const saveDailyBudget = (currentTotalBudget, dailyBudget, starting) => {
