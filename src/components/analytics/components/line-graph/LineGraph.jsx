@@ -56,8 +56,8 @@ export default function LineGraph({ historyData, label, type }) {
 
                                 }),
                                 borderColor: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
-                                // backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(`--${type === 'dailyBudget' ? 'secondary' : 'accent'}-color`),
-                                backgroundColor: '#ffffff',
+                                backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(`--accent-color`),
+                                // backgroundColor: '#ffffff',
                                 fill: true,
                                 tension: 0.1,
                                 borderWidth: 3,

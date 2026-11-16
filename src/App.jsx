@@ -45,15 +45,13 @@ export default function App() {
                 const newDailyBudget = calculateDailyBudget(currentBudget, remainingDays)
 
                 setDailyBudget(newDailyBudget)
-                // saveDailyBudget(currentBudget, newDailyBudget, starting)
         }, [remainingDays])
 
         const handleChange = event => {
-                setCurrentBudget(event.target.value)
-                const dailyBudget = calculateDailyBudget(event.target.value, remainingDays)
+                setCurrentBudget(+event.target.value) // unary +, converts the whole stirng into a number, same as Number()
+                const dailyBudget = calculateDailyBudget(+event.target.value, remainingDays)
 
                 setDailyBudget(dailyBudget)
-                // saveDailyBudget(event.target.value, dailyBudget, starting)
         }
 
         const handleSave = () => {
