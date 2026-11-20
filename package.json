@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "vitest --silent=false"
+    "test": "vitest"
   },
   "dependencies": {
     "@rolldown/binding-wasm32-wasi": "^1.2.15",
