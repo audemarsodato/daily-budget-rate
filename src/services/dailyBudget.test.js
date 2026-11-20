@@ -30,7 +30,7 @@ describe('calculate average increase of daily budget', () => {
 
         it('returns the average of daily budgets from an array', () => {
                 expect(calculateAverageIncrease([10, 30])).toBe(20)
-                expect(calculateAverageIncrease([240, 266.67])).toBe(26.67)
+                expect(calculateAverageIncrease([250, 255.56])).toBe(5.56)
                 expect(calculateAverageIncrease([10, 20, 30])).toBe(10)
                 expect(calculateAverageIncrease([10, 15, 20, 25, 30])).toBe(5)
         })

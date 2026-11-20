@@ -22,9 +22,10 @@ export default function Analytics({ saveCount }) {
                 setAvgDailyExpense(calculateAverageDailyExpense(
                         historyData.map(data => data.currentTotalBudget)
                 ))
-                setAvgDailyBudgetIncrease(calculateAverageDailyExpense(
+                setAvgDailyBudgetIncrease(calculateAverageIncrease(
                         historyData.map(data => data.dailyBudget)
                 ))
+                console.log(calculateAverageIncrease(historyData.map(data => data.dailyBudget)))
         }, [historyData])
 
         return (
