@@ -82,3 +82,42 @@
         flex-direction: column;
         gap: 12px;
 }
+
+.indicators {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 12px;
+}
+
+.indicator {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        padding: 1.5rem;
+
+        background-color: var(--white);
+        border: 3px solid var(--text-color);
+        box-shadow: 4px 4px 0 var(--text-color);
+}
+
+.indicator h2 {
+        font-weight: 900;
+}
+
+.average-daily-budget-increase h2 {
+        color: #00ae5d;
+}
+
+.indicator__label {
+        margin-top: 8px;
+        font-size: 12px;
+}
+
+.indicator__peso-label {
+        font-size: 12px;
+
+        /* text-align: center; */
+}
