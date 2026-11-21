@@ -52,7 +52,9 @@ export default function Analytics({ saveCount }) {
                                                         <p className="indicator__label">Average Daily Expense</p>
                                                 </section>
                                                 <section className="average-daily-budget-increase indicator">
-                                                        <h2>{avgDailyBudgetIncrease > 0 ? 
+                                                        <h2
+                                                                style={{color: `${avgDailyBudgetIncrease >= 0 ? '#00c649' : '#cd0000'}`}}
+                                                        >{avgDailyBudgetIncrease > 0 ? 
                                                                 `+${avgDailyBudgetIncrease}` 
                                                                 :
                                                                 avgDailyBudgetIncrease}
